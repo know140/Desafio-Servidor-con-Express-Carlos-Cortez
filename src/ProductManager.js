@@ -7,16 +7,21 @@ class ProductManager {
         this.path = path;
     }
 
+    // Método para agregar un producto al archivo JSON.
     async addProduct(product) {
         let content = await fs.readFile(this.path, 'utf-8');
         let products = JSON.parse(content);
 
+        // Asignar un ID único al producto.
         product.id = ++ProductManager.id;
+        // Agregar el producto a la lista.
         products.push(product);
 
+        // Escribir la lista actualizada en el archivo JSON.
         await fs.writeFile(this.path, JSON.stringify(products, null, '\t'));
     }
 
+    // Método para obtener la lista actual de productos desde el archivo JSON.
     async getProducts() {
         let content = await fs.readFile(this.path, 'utf-8');
         let products = JSON.parse(content);
@@ -24,20 +29,25 @@ class ProductManager {
         return products;
     }
 
+    // Método para eliminar un producto por su ID del archivo JSON.
     async deleteProduct(id) {
         let content = await fs.readFile(this.path, 'utf-8');
         let products = JSON.parse(content);
 
+        // Filtrar los productos y eliminar el producto con el ID dado.
         products = products.filter(p => p.id !== id);
 
         console.log(`Se eliminó el producto con id ${id}`);
+        // Escribir la lista actualizada en el archivo JSON.
         await fs.writeFile(this.path, JSON.stringify(products, null, '\t'));
     }
 
+    // Método para obtener un producto por su ID desde el archivo JSON.
     async getProductById(id) {
         let content = await fs.readFile(this.path, 'utf-8');
         let products = JSON.parse(content);
 
+        // Buscar el producto por su ID.
         let product = products.find(product => product.id === id);
 
         if (product) {
@@ -50,6 +60,7 @@ class ProductManager {
         }
     }
 
+    // Método para actualizar un producto en el archivo JSON.
     async updateProduct(updatedProduct) {
         try {
             let content = await fs.readFile(this.path, 'utf-8');
@@ -62,7 +73,7 @@ class ProductManager {
                 // Actualizar el producto en la lista.
                 products[index] = updatedProduct;
 
-                // Guardar la lista actualizada en el archivo.
+                // Guardar la lista actualizada en el archivo JSON.
                 await fs.writeFile(this.path, JSON.stringify(products, null, '\t'));
 
                 console.log(`Producto con id ${updatedProduct.id} actualizado exitosamente.`);
