@@ -1,1 +1,10 @@
-[]
+[
+	{
+		"description": "Primer producto",
+		"id": 1
+	},
+	{
+		"description": "Producto actualizado",
+		"id": 2
+	}
+]
