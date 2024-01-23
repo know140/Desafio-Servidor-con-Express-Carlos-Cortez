@@ -11,6 +11,8 @@ async function cargarArchivos() {
 
         const products = await manager.getProducts()
         console.log (products)
+
+        await manager.deleteProduct(1)
 }
 
 
