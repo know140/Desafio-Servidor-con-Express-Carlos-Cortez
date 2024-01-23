@@ -1,1 +1,14 @@
-[{"description":"Second product","id":2}]
+[
+	{
+		"description": "first product",
+		"id": 1
+	},
+	{
+		"description": "Second product",
+		"id": 2
+	},
+	{
+		"description": "Third product",
+		"id": 3
+	}
+]
