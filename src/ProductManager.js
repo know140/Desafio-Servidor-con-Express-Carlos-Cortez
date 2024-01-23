@@ -12,7 +12,7 @@ class ProductManager {
         let content = await fs.readFile(this.path, 'utf-8');
         let products = JSON.parse(content);
 
-        // Asignar un ID único al producto.
+        // Asignar un ID único al product
         product.id = ++ProductManager.id;
         // Agregar el producto a la lista.
         products.push(product);
