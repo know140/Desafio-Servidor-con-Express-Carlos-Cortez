@@ -7,7 +7,6 @@ class ProductManager {
         this.path = path;
     }
 
-    // Método para agregar un nuevo producto al archivo JSON y actualizar el contenido.
     async addProduct(product) {
         let content = await fs.readFile(this.path, 'utf-8');
         let products = JSON.parse(content);
@@ -18,7 +17,6 @@ class ProductManager {
         await fs.writeFile(this.path, JSON.stringify(products, null, '\t'));
     }
 
-    // Método para leer el contenido del archivo JSON y devolver la lista de productos.
     async getProducts() {
         let content = await fs.readFile(this.path, 'utf-8');
         let products = JSON.parse(content);
@@ -26,7 +24,6 @@ class ProductManager {
         return products;
     }
 
-    // Método para eliminar un producto del archivo JSON por su 'id' y actualizar el contenido.
     async deleteProduct(id) {
         let content = await fs.readFile(this.path, 'utf-8');
         let products = JSON.parse(content);
@@ -37,25 +34,43 @@ class ProductManager {
         await fs.writeFile(this.path, JSON.stringify(products, null, '\t'));
     }
 
-    // Método para buscar un producto por su 'id' en el archivo JSON y mostrarlo en la consola.
     async getProductById(id) {
+        let content = await fs.readFile(this.path, 'utf-8');
+        let products = JSON.parse(content);
+
+        let product = products.find(product => product.id === id);
+
+        if (product) {
+            console.log(`Producto con id ${id} encontrado:`);
+            console.log(product);
+            return product;
+        } else {
+            console.log(`No se encontró ningún producto con id ${id}.`);
+            return null;
+        }
+    }
+
+    async updateProduct(updatedProduct) {
         try {
             let content = await fs.readFile(this.path, 'utf-8');
             let products = JSON.parse(content);
 
-            let product = products.find(product => product.id === id);
+            // Buscar el índice del producto a actualizar por su ID.
+            const index = products.findIndex(product => product.id === updatedProduct.id);
 
-            if (product) {
-                console.log(`Producto con id ${id} encontrado:`);
-                console.log(product);
-                return product;
+            if (index !== -1) {
+                // Actualizar el producto en la lista.
+                products[index] = updatedProduct;
+
+                // Guardar la lista actualizada en el archivo.
+                await fs.writeFile(this.path, JSON.stringify(products, null, '\t'));
+
+                console.log(`Producto con id ${updatedProduct.id} actualizado exitosamente.`);
             } else {
-                console.log(`No se encontró ningún producto con id ${id}.`);
-                return null;
+                console.log(`No se encontró ningún producto con id ${updatedProduct.id} para actualizar.`);
             }
         } catch (error) {
-            console.error('Error en getProductById:', error.message);
-            return null;
+            console.error('Error en updateProduct:', error.message);
         }
     }
 }
