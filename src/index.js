@@ -7,9 +7,9 @@ const manager = new ProductManager('./src/products.json');
 async function cargarArchivos() {
     try {
         // Agregar tres productos al archivo JSON.
-        await manager.addProduct({ description: 'Primer producto' });
-        await manager.addProduct({ description: 'Segundo producto' });
-        await manager.addProduct({ description: 'Tercer producto' });
+        await manager.addProduct({ description: 'remera' });
+        await manager.addProduct({ description: 'jean' });
+        await manager.addProduct({ description: 'campera' });
 
         // Obtener la lista actualizada de productos después de la adición.
         const products = await manager.getProducts();
@@ -36,7 +36,7 @@ async function cargarArchivos() {
 
         if (existingProduct) {
             // Actualizar el producto existente.
-            existingProduct.description = 'Producto actualizado';
+            existingProduct.description = 'Actualización';
             await manager.updateProduct(existingProduct);
 
             // Obtener la lista después de la actualización.

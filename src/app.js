@@ -2,7 +2,7 @@ const express = require('express');
 const ProductManager = require('./ProductManager');
 
 const server = express();
-const port = 5050;
+const port = 4800;
 
 server.use(express.urlencoded({extended:true}))
 
